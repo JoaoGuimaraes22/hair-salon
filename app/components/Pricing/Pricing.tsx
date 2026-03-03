@@ -130,7 +130,6 @@ export default function Pricing({ dict }: Props) {
         {/* Pricing rows */}
         <div className="bg-cream-100 rounded-3xl overflow-hidden border border-cream-300">
           {categories[activeTab].map((item, i) => {
-            const isSpecial = specialPrices.has(item.price.toLowerCase());
             return (
               <div
                 key={`${activeTab}-${i}`}

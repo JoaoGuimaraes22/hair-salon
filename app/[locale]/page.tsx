@@ -6,12 +6,11 @@ import About from "@/app/components/About/About";
 import Services from "@/app/components/Services/Services";
 import Pricing from "@/app/components/Pricing/Pricing";
 import Gallery from "@/app/components/Gallery/Gallery";
-/*import Team from "@/app/components/Team/Team";
+import Team from "@/app/components/Team/Team";
 import Reviews from "@/app/components/Reviews/Reviews";
 import Contact from "@/app/components/Contact/Contact";
 import Footer from "@/app/components/Footer/Footer";
 import BookingBar from "@/app/components/BookingBar/BookingBar";
-*/
 
 type Props = {
   params: Promise<{ locale: Locale }>;
@@ -30,12 +29,12 @@ export default async function Page({ params }: Props) {
         <Services dict={dict.services} />
         <Pricing dict={dict.pricing} />
         <Gallery dict={dict.gallery} />
-        {/* <Team dict={dict.team} />
+        <Team dict={dict.team} />
         <Reviews dict={dict.reviews} />
-        <Contact dict={dict.contact} /> */}
+        <Contact dict={dict.contact} />
       </main>
-      {/* <Footer dict={dict.footer} />
-      <BookingBar dict={dict.bookingBar} /> */}
+      <Footer dict={dict.footer} />
+      <BookingBar dict={dict.bookingBar} />
     </>
   );
 }

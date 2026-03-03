@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import type { Locale } from "@/i18n-config";
 
 type Props = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 const meta = {
@@ -70,7 +69,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const m = meta[locale] ?? meta.pt;
+  const m = meta[locale as keyof typeof meta] ?? meta.pt;
 
   return {
     title: m.title,
