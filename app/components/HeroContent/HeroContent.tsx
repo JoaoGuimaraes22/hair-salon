@@ -26,7 +26,7 @@ export default function HeroContent({ dict }: Props) {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background photo */}
       <Image
-        src="/hero.jpg"
+        src="/img/hero/hero.jpg"
         alt="Bella Salão de Beleza, Carcavelos"
         fill
         priority
@@ -84,7 +84,13 @@ export default function HeroContent({ dict }: Props) {
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 animate-bounce">
         <div className="w-px h-8 bg-white/30" />
-        <svg width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
+        <svg
+          width="14"
+          height="9"
+          viewBox="0 0 14 9"
+          fill="none"
+          aria-hidden="true"
+        >
           <path
             d="M1 1l6 6 6-6"
             stroke="currentColor"

@@ -8,9 +8,15 @@ type Dict = {
   heading: string;
   subtitle: string;
   bookWith: string;
-  m1Name: string; m1Role: string; m1Spec: string;
-  m2Name: string; m2Role: string; m2Spec: string;
-  m3Name: string; m3Role: string; m3Spec: string;
+  m1Name: string;
+  m1Role: string;
+  m1Spec: string;
+  m2Name: string;
+  m2Role: string;
+  m2Spec: string;
+  m3Name: string;
+  m3Role: string;
+  m3Spec: string;
 };
 
 type Props = {
@@ -25,7 +31,10 @@ export default function Team({ dict }: Props) {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) { el.classList.add("visible"); obs.disconnect(); }
+        if (entry.isIntersecting) {
+          el.classList.add("visible");
+          obs.disconnect();
+        }
       },
       { threshold: 0.1 },
     );
@@ -34,9 +43,24 @@ export default function Team({ dict }: Props) {
   }, []);
 
   const members = [
-    { name: dict.m1Name, role: dict.m1Role, spec: dict.m1Spec, photo: "/team1.jpg" },
-    { name: dict.m2Name, role: dict.m2Role, spec: dict.m2Spec, photo: "/team2.jpg" },
-    { name: dict.m3Name, role: dict.m3Role, spec: dict.m3Spec, photo: "/team3.jpg" },
+    {
+      name: dict.m1Name,
+      role: dict.m1Role,
+      spec: dict.m1Spec,
+      photo: "/img/team/team1.jpg",
+    },
+    {
+      name: dict.m2Name,
+      role: dict.m2Role,
+      spec: dict.m2Spec,
+      photo: "/img/team/team2.jpg",
+    },
+    {
+      name: dict.m3Name,
+      role: dict.m3Role,
+      spec: dict.m3Spec,
+      photo: "/img/team/team3.jpg",
+    },
   ];
 
   return (
@@ -55,7 +79,10 @@ export default function Team({ dict }: Props) {
           <p className="text-rose-700 max-w-xl mx-auto">{dict.subtitle}</p>
         </div>
 
-        <div ref={ref} className="reveal grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          ref={ref}
+          className="reveal grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {members.map((member, i) => (
             <div
               key={i}
@@ -79,8 +106,12 @@ export default function Team({ dict }: Props) {
               >
                 {member.name}
               </h3>
-              <p className="text-rose-500 text-sm font-medium mb-3">{member.role}</p>
-              <p className="text-rose-600 text-xs mb-6 leading-relaxed">{member.spec}</p>
+              <p className="text-rose-500 text-sm font-medium mb-3">
+                {member.role}
+              </p>
+              <p className="text-rose-600 text-xs mb-6 leading-relaxed">
+                {member.spec}
+              </p>
 
               {/* Book button */}
               <a

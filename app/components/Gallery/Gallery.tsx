@@ -37,7 +37,10 @@ export default function Gallery({ dict }: Props) {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) { el.classList.add("visible"); obs.disconnect(); }
+        if (entry.isIntersecting) {
+          el.classList.add("visible");
+          obs.disconnect();
+        }
       },
       { threshold: 0.1 },
     );
@@ -84,7 +87,7 @@ export default function Gallery({ dict }: Props) {
               }}
             >
               <Image
-                src={`/gallery${i + 1}.jpg`}
+                src={`/img/gallery/gallery${i + 1}.jpg`}
                 alt={alts[i]}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

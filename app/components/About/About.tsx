@@ -34,7 +34,9 @@ export default function About({ dict }: Props) {
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const els = [textRef.current, imageRef.current].filter(Boolean) as HTMLDivElement[];
+    const els = [textRef.current, imageRef.current].filter(
+      Boolean,
+    ) as HTMLDivElement[];
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -75,14 +77,19 @@ export default function About({ dict }: Props) {
                 { value: dict.stat2Value, label: dict.stat2Label },
                 { value: dict.stat3Value, label: dict.stat3Label },
               ].map((stat, i) => (
-                <div key={i} className="text-center p-4 bg-cream-100 rounded-2xl">
+                <div
+                  key={i}
+                  className="text-center p-4 bg-cream-100 rounded-2xl"
+                >
                   <div
                     className="text-2xl sm:text-3xl text-rose-900 font-bold mb-1"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
                     {stat.value}
                   </div>
-                  <div className="text-xs text-rose-600 leading-tight">{stat.label}</div>
+                  <div className="text-xs text-rose-600 leading-tight">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -106,11 +113,15 @@ export default function About({ dict }: Props) {
           </div>
 
           {/* Photo */}
-          <div ref={imageRef} className="reveal" style={{ transitionDelay: "0.15s" }}>
+          <div
+            ref={imageRef}
+            className="reveal"
+            style={{ transitionDelay: "0.15s" }}
+          >
             <div className="relative">
               <div className="relative aspect-3/4 rounded-3xl overflow-hidden shadow-xl">
                 <Image
-                  src="/about.jpg"
+                  src="/img/about/about.jpg"
                   alt="Bella Salão de Beleza — equipa e interior"
                   fill
                   className="object-cover"
