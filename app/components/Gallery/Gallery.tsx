@@ -32,10 +32,11 @@ const items = [
 ];
 
 export default function Gallery({ dict }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = headingRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
@@ -47,6 +48,23 @@ export default function Gallery({ dict }: Props) {
       { threshold: 0.1 },
     );
     obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          grid.classList.add("gallery-triggered");
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+    obs.observe(grid);
     return () => obs.disconnect();
   }, []);
 
@@ -63,7 +81,7 @@ export default function Gallery({ dict }: Props) {
   return (
     <section id="gallery" className="bg-cream-100 py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div ref={ref} className="reveal text-center mb-12">
+        <div ref={headingRef} className="reveal text-center mb-12">
           <p className="text-rose-500 text-xs font-semibold tracking-[0.3em] uppercase mb-4">
             {dict.sectionLabel}
           </p>
@@ -77,16 +95,19 @@ export default function Gallery({ dict }: Props) {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-10">
+        <div
+          ref={gridRef}
+          className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-10"
+        >
           {items.map((item, i) => (
             <div
               key={i}
-              className={`relative overflow-hidden rounded-2xl group cursor-pointer ${
+              className={`gallery-item relative overflow-hidden rounded-2xl group cursor-pointer ${
                 item.tall ? "row-span-2" : ""
               } ${item.desktopOnly ? "hidden md:block" : ""}`}
               style={{
                 aspectRatio: item.tall ? undefined : "1 / 1",
-                transitionDelay: `${i * 60}ms`,
+                transitionDelay: `${i * 100}ms`,
               }}
             >
               <Image

@@ -42,3 +42,14 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+.gallery-item {
+  opacity: 0;
+  transform: translateY(32px) scale(0.96);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.gallery-triggered .gallery-item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
