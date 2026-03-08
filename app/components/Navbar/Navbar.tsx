@@ -7,7 +7,6 @@ type Dict = {
   brand: string;
   bookCta: string;
   navServices: string;
-  navPricing: string;
   navGallery: string;
   navTeam: string;
   navReviews: string;
@@ -41,7 +40,6 @@ export default function Navbar({ dict, locale }: Props) {
 
   const navLinks = [
     { label: dict.navServices, href: "#services" },
-    { label: dict.navPricing, href: "#pricing" },
     { label: dict.navGallery, href: "#gallery" },
     { label: dict.navTeam, href: "#team" },
     { label: dict.navReviews, href: "#reviews" },

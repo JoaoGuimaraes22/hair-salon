@@ -16,21 +16,48 @@ type Props = {
 
 export default function HeroContent({ dict }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => ref.current?.classList.add("visible"), 120);
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReduced) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const img = imgRef.current;
+        if (img) {
+          const offset = window.scrollY * 0.35;
+          img.style.transform = `translateY(${offset}px) scale(1.1)`;
+        }
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background photo */}
+      {/* Background photo with parallax */}
       <Image
+        ref={imgRef}
         src="/img/hero/hero.jpg"
         alt="Bella Salão de Beleza, Carcavelos"
         fill
         priority
-        className="object-cover object-center"
+        className="object-cover object-center will-change-transform scale-110"
+        style={{ transition: "transform 0.1s linear" }}
       />
 
       {/* Dark overlay for text readability */}

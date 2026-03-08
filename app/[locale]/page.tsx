@@ -4,7 +4,6 @@ import Navbar from "@/app/components/Navbar/Navbar";
 import HeroContent from "@/app/components/HeroContent/HeroContent";
 import About from "@/app/components/About/About";
 import Services from "@/app/components/Services/Services";
-import Pricing from "@/app/components/Pricing/Pricing";
 import Gallery from "@/app/components/Gallery/Gallery";
 import Team from "@/app/components/Team/Team";
 import Reviews from "@/app/components/Reviews/Reviews";
@@ -27,7 +26,6 @@ export default async function Page({ params }: Props) {
         <HeroContent dict={dict.hero} />
         <About dict={dict.about} />
         <Services dict={dict.services} />
-        <Pricing dict={dict.pricing} />
         <Gallery dict={dict.gallery} />
         <Team dict={dict.team} />
         <Reviews dict={dict.reviews} />

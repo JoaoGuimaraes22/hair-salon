@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 type Dict = {
   sectionLabel: string;
@@ -51,6 +52,7 @@ function Stars() {
 
 export default function Reviews({ dict }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -68,6 +70,36 @@ export default function Reviews({ dict }: Props) {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReduced) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const img = imgRef.current;
+        if (!img) {
+          ticking = false;
+          return;
+        }
+        const rect = img.parentElement!.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const wh = window.innerHeight;
+        const offset = ((center - wh / 2) / wh) * -50;
+        img.style.transform = `translateY(${offset}px) scale(1.2)`;
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const reviews = [
     { name: dict.r1Name, text: dict.r1Text, date: dict.r1Date },
     { name: dict.r2Name, text: dict.r2Text, date: dict.r2Date },
@@ -78,19 +110,32 @@ export default function Reviews({ dict }: Props) {
   ];
 
   return (
-    <section id="reviews" className="bg-cream-100 py-20 md:py-28">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="reviews" className="relative py-20 md:py-28 overflow-hidden">
+      {/* Parallax background image */}
+      <Image
+        ref={imgRef}
+        src="/img/reviews/reviews.jpg"
+        alt=""
+        fill
+        className="object-cover will-change-transform scale-120"
+        style={{ transition: "transform 0.1s linear" }}
+        aria-hidden="true"
+      />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-rose-900/75" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-14">
-          <p className="text-rose-500 text-xs font-semibold tracking-[0.3em] uppercase mb-4">
+          <p className="text-gold-400 text-xs font-semibold tracking-[0.3em] uppercase mb-4">
             {dict.sectionLabel}
           </p>
           <h2
-            className="text-3xl sm:text-4xl text-rose-900 mb-4"
+            className="text-3xl sm:text-4xl text-cream-50 mb-4"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             {dict.heading}
           </h2>
-          <p className="text-rose-700 max-w-xl mx-auto">{dict.subtitle}</p>
+          <p className="text-cream-200/80 max-w-xl mx-auto">{dict.subtitle}</p>
         </div>
 
         <div
@@ -100,7 +145,7 @@ export default function Reviews({ dict }: Props) {
           {reviews.map((review, i) => (
             <div
               key={i}
-              className="bg-cream-50 rounded-2xl p-6 border border-cream-300 flex flex-col"
+              className="bg-cream-50/90 backdrop-blur-sm rounded-2xl p-6 border border-cream-200/50 flex flex-col"
               style={{ transitionDelay: `${i * 80}ms` }}
             >
               <Stars />

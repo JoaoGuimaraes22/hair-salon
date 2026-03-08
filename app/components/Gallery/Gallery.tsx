@@ -14,6 +14,7 @@ type Dict = {
   img4Alt: string;
   img5Alt: string;
   img6Alt: string;
+  img7Alt: string;
 };
 
 type Props = {
@@ -21,12 +22,13 @@ type Props = {
 };
 
 const items = [
-  { tall: true },
-  { tall: false },
-  { tall: false },
-  { tall: false },
-  { tall: true },
-  { tall: false },
+  { tall: true, desktopOnly: false },
+  { tall: false, desktopOnly: false },
+  { tall: false, desktopOnly: false },
+  { tall: false, desktopOnly: false },
+  { tall: true, desktopOnly: false },
+  { tall: false, desktopOnly: true },
+  { tall: false, desktopOnly: false },
 ];
 
 export default function Gallery({ dict }: Props) {
@@ -55,6 +57,7 @@ export default function Gallery({ dict }: Props) {
     dict.img4Alt,
     dict.img5Alt,
     dict.img6Alt,
+    dict.img7Alt,
   ];
 
   return (
@@ -80,7 +83,7 @@ export default function Gallery({ dict }: Props) {
               key={i}
               className={`relative overflow-hidden rounded-2xl group cursor-pointer ${
                 item.tall ? "row-span-2" : ""
-              }`}
+              } ${item.desktopOnly ? "hidden md:block" : ""}`}
               style={{
                 aspectRatio: item.tall ? undefined : "1 / 1",
                 transitionDelay: `${i * 60}ms`,
